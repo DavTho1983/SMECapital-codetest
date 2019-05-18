@@ -1,10 +1,8 @@
 from django.contrib.auth import login
 
-from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
-
 from Loans.models import Loans
+from django.shortcuts import render
+
 from .forms import SignUpForm
 
 
@@ -19,14 +17,6 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
-def home(request, start=0, end=10):
-
-    return render(request, 'home.html')
-
-
-def create_loan():
-    return
 
 def home(request):
     loans = Loans.objects.all()

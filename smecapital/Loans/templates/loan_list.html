@@ -1,23 +1,31 @@
 {% block content %}
 
-<h1>Your loans</h1>
-    <table>
-        <tr>
-            <th>Principal</th>
-            <th>Approved</th>
-            <th>Start Date</th>
-            <th>Term in months</th>
-            <th>APR</th>
-        </tr>
-        {% for loan in loans  %}
-        <tr>
-            <th> £{{ loan.principal }}</th>
-            <th> {{ loan.approved }}</th>
-            <th> {{ loan.start_date }}</th>
-            <th> {{ loan.term_in_months }}</th>
-            <th> {{ loan.interest_rate_pa}}%</th>
-        </tr>
+{% if request.user.is_superuser %}
+    <h1> All loans </h1>
+{% else %}
+    <h1> Your loans, {{ request.user.name}} </h1>
+{% endif %}
+<table>
+    <tr>
+        <th>Principal</th>
+        <th>Approved</th>
+        <th>Start Date</th>
+        <th>Term in months</th>
+        <th>APR</th>
+    </tr>
+
+    {% for loan in loans  %}
+        {% if request.user.is_superuser or request.user == loan.borrower %}
+            <tr>
+                <th> £{{ loan.principal }}</th>
+                <th> {{ loan.approved }}</th>
+                <th> {{ loan.start_date }}</th>
+                <th> {{ loan.term_in_months }}</th>
+                <th> {{ loan.interest_rate_pa}}%</th>
+            </tr>
+        {% endif %}
     {% endfor %}
-    </table>
+
+</table>
 
 {% endblock %}

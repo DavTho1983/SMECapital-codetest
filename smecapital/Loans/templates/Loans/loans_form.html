@@ -1,0 +1,11 @@
+<form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}: {{ field }}
+        </div>
+
+    {% endfor %}
+    <p><input type="submit" value="Submit loan request" /></p>
+</form>

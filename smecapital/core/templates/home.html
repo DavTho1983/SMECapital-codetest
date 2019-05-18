@@ -8,25 +8,34 @@
 
 {% if user.is_authenticated %}
 
-  <span>You are now logged in as {{ user.name }}</span>
 
-        <div class="basic">
-            {% include "loan_list.html" %}
-        </div>
+<span>You are now logged in as {{ user.name }}</span>
 
 
-  <p><a href="{% url 'logout' %}" class="btn btn-danger">logout</a></p>
+
+    <div class="basic">
+        {% include "loan_list.html" %}
+    </div>
+
+    <a href="{% url 'create' %}" class="btn btn-primary">New loan</a>
+
+
+
+
+
+<p><a href="{% url 'logout' %}" class="btn btn-danger">logout</a></p>
 
 
 {% else %}
-    <div class="row">
-      <p>You are not logged in </p>
-    </div>
+<div class="row">
+  <p>You are not logged in </p>
+</div>
 
-    <div class="row">
-      <a href="{% url 'login' %}" class="btn btn-primary">login</a>
-      <a href="{% url 'signup' %}" class="btn btn-primary">signup</a>
-    </div>
+<div class="row">
+  <a href="{% url 'login' %}" class="btn btn-primary">login</a>
+  <a href="{% url 'signup' %}" class="btn btn-primary">signup</a>
+</div>
+
 {% endif %}
     </div>
 </div>
