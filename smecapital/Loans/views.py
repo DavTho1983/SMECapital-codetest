@@ -1,6 +1,6 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Loans
 from .forms import LoanForm
@@ -23,3 +23,13 @@ class LoanCreateView(CreateView):
     def form_valid(self, form):
         form.instance.borrower = self.request.user
         return super(LoanCreateView, self).form_valid(form)
+
+
+class LoanEditView(UpdateView):
+    model = Loans
+    form_class = LoanForm
+
+    def get_success_url(self):
+        return reverse('edit', kwargs={
+            'pk': self.object.pk,
+        })

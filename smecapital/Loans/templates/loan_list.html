@@ -22,6 +22,7 @@
                 <th> {{ loan.start_date }}</th>
                 <th> {{ loan.term_in_months }}</th>
                 <th> {{ loan.interest_rate_pa}}%</th>
+                <th><a href="{% url 'edit' pk=loan.pk %}" class="btn btn-primary">Edit</a></th>
             </tr>
         {% endif %}
     {% endfor %}
