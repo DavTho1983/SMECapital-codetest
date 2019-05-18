@@ -1,0 +1,23 @@
+{% block content %}
+
+<h1>Your loans</h1>
+    <table>
+        <tr>
+            <th>Principal</th>
+            <th>Approved</th>
+            <th>Start Date</th>
+            <th>Term in months</th>
+            <th>APR</th>
+        </tr>
+        {% for loan in loans  %}
+        <tr>
+            <th> £{{ loan.principal }}</th>
+            <th> {{ loan.approved }}</th>
+            <th> {{ loan.start_date }}</th>
+            <th> {{ loan.term_in_months }}</th>
+            <th> {{ loan.interest_rate_pa}}%</th>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

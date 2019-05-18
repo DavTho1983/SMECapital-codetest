@@ -10,6 +10,11 @@
 
   <span>You are now logged in as {{ user.name }}</span>
 
+        <div class="basic">
+            {% include "loan_list.html" %}
+        </div>
+
+
   <p><a href="{% url 'logout' %}" class="btn btn-danger">logout</a></p>
 
 

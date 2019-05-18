@@ -1,12 +1,94 @@
 from django.contrib import admin
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext as _
 from .models import User
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+
+class UserAdmin(BaseUserAdmin, ModelBackend):
+
+    def _allow_edit(self, obj=None):
+        if not obj:
+            return True
+        return not (obj.is_staff or obj.is_superuser)
+
+    def has_change_permission(self, request, obj=None):
+        return self._allow_edit(obj)
+
+    def has_delete_permission(self, request, obj=None):
+        return self._allow_edit(obj)
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_view_permission(self, request, obj=None):
+        return True
+
+    def has_module_permission(self, request):
+        return True
+
     list_display = (
         "name",
         "email",
         "is_active",
         "is_staff",
     )
+
+    list_display_links = ("email",)
+
+    list_editable = (
+
+        "name",
+        "is_active",
+        "is_staff",
+    )
+
+    fieldsets = (
+
+        (None, {'fields': ('email', 'password')}),
+
+
+        (_('Personal Info'), {'fields': ('name',)}),
+
+        (
+
+            _('Permissions'),
+
+
+
+            {
+
+                'fields': (
+
+                    'is_active',
+
+                    'is_staff',
+
+                    'is_superuser',
+
+                )
+
+            }
+
+        ),
+
+        (_('Important dates'), {'fields': ('last_login',)}),
+
+    )
+    add_fieldsets = (
+
+        (None, {
+
+            'classes': ('wide',),
+
+            'fields': ('name', 'email', 'password1', 'password2', 'is_active', 'is_staff')
+
+        }),
+
+    )
     ordering = ["id"]
+
+
+
+
+admin.site.register(User, UserAdmin)

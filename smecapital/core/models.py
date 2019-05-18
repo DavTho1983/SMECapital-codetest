@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.auth.models import *
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -24,6 +24,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
+
         user.save(using=self._db)
 
         return user
@@ -37,6 +38,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+
+
     objects = UserManager()
 
     USERNAME_FIELD = "email"
+
+    def get_list_display(self):
+        return ['email']
+
