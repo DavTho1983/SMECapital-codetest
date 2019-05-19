@@ -12,6 +12,10 @@
         <th>Start Date</th>
         <th>Term in months</th>
         <th>APR</th>
+        <th>Monthly interest rate</th>
+        <th>Monthly repayment</th>
+        <th>Final repayment date</th>
+        <th>Total amount repaid by the end of term</th>
     </tr>
 
     {% for loan in loans  %}
@@ -21,7 +25,11 @@
                 <th> {{ loan.approved }}</th>
                 <th> {{ loan.start_date }}</th>
                 <th> {{ loan.term_in_months }}</th>
-                <th> {{ loan.interest_rate_pa}}%</th>
+                <th> {{ loan.APR }}%</th>
+                <th> {{ loan.interest_rate_per_month }}%</th>
+                <th> £{{ loan.monthly_repayment }}</th>
+                <th> {{ loan.final_repayment_date }}</th>
+                <th> £{{ loan.total_amount_repaid }}</th>
                 <th><a href="{% url 'edit' pk=loan.pk %}" class="btn btn-primary">Edit</a></th>
             </tr>
         {% endif %}
